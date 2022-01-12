@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Tilte of</title>
+<style>
+    body {
+        background-color: black;
+    }
+    h1 {
+        color: white;
+        font-size: 40px;
+        text-align: center;
+    }
+    h2{
+        color: white;
+        font-size: 35;
+        text-align: center;
+    }
+    p{
+        color: white;
+        font-family: Verdana;
+        font-size: 15px;
+        text-align: center;
+    }
+    form{
+        color: white;
+        text-align: center;
+    }
+</style>
+</head>
+
+<body>
+    <h1>Пользователи:</h1>
+{% for item in users %}
+    <h2>Пользователь: {{ item.nickname }}</h2>
+    <p>Почта пользователя: {{ item.login }}</p>
+    <p>Id Пользователя: {{ item.id }}</p>
+    <p>Уровень доступа пользователя: {{ item.level_of_access }}</p>
+    <p>Виден ли пользователь : {{ item.visibility }}</p>
+    <!--Пользователи с уровнем доступа (CRUD) могут видеть уровень доступа-->
+    <form action='/do_admin' method="POST">
+        <input type="hidden" name="userlogin" value="{{item.login}}">
+        <br></br>
+        <input type="submit" value="Назначить Администратором">
+        
+    </form>
+
+    <form action='/do_user' method="POST">
+        <input type="hidden" name="userlogin" value="{{item.login}}">
+        <br></br>
+        <input type="submit" value="Назначить пользователем">
+        
+    </form>
+
+    <form action='/delete_user' method="POST">
+        
+        <input type="hidden" name="userlogin" value="{{item.login}}">
+        <br></br>
+        <input type="submit" value="Удалить пользователя">
+    </form>
+
+    <form action='/recover_user' method="POST">
+        
+        <input type="hidden" name="userlogin" value="{{item.login}}">
+        <br></br>
+        <input type="submit" value="Восстановить пользователя">
+    </form>
+{% endfor %}
+
+</body>
+
+</html>
